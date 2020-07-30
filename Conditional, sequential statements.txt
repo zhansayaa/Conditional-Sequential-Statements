@@ -1,0 +1,61 @@
+OT DB
+Part 1. IF-ELSE statement.
+Question 1. Retrieve product name and calculate how many items left in the
+warehouses. if the number less than 1000 then add status as “min” else “enough”;
+Question 2. Compare standard cost of the product with the list price. If it is more
+then decrease the price to quarter; if it is less, then increase to 1/5; if it is equal
+do not change.
+
+Part 2. CASE statement.
+Question 3. Define the number of employees under each manager. If the number
+of employees more than 10 then show message which says that manager overpacked. If less than 5 then not unpacked.
+Question 4. Define the number of order made by each customer. If the number of
+order more than 10 then show message which says that customer is active. If between 10 and 5 then less active. If less than 5 then not active.
+Question 5. Define the manager of the employee. If there is manager show the
+name of manager, if not define that there is no manager.
+Part 3. LOOP statement.
+DECLARE
+ v_course course.course_no%type := 430;
+ v_instructor_id instructor.instructor_id%type := 102;
+ v_sec_num section.section_no%type := 0;
+BEGIN LOOP
+ -- increment section number by one
+ v_sec_num := v_sec_num + 1;
+ INSERT INTO section
+ (section_id, course_no, section_no, instructor_id,
+ created_date, created_by, modified_date,
+ modified_by)
+ VALUES
+ (section_id_seq.nextval, v_course, v_sec_num,
+ v_instructor_id, SYSDATE, USER, SYSDATE, USER);
+ -- if number of sections added is ten exit the loop
+ EXIT WHEN v_sec_num = 10;
+END LOOP;
+-- control resumes here
+COMMIT; END;
+
+Question 6. Rewrite script above using a WHILE loop instead of a simple loop. Make sure
+that the output produced by this script does not differ from the output produced by the script
+above
+SET SERVEROUTPUT ON
+ DECLARE
+ v_counter BINARY_INTEGER := 1;
+ v_sum NUMBER := 0;
+ BEGIN
+ WHILE v_counter <= 10 LOOP
+ v_sum := v_sum + v_counter;
+ DBMS_OUTPUT.PUT_LINE ('Current sum is: '||v_sum);
+ -- increment loop counter by one
+ v_counter := v_counter + 1;
+ END LOOP;
+-- control resumes here
+DBMS_OUTPUT.PUT_LINE ('The sum of integers between 1 '||
+ 'and 10 is: '||v_sum);
+END;
+Question 7. Rewrite script above using a numeric FOR loop instead of a WHILE loop.
+Make sure that the output produced by this script does not differ from the output produced by
+the script above.
+Question 8. Use a numeric FOR loop to calculate a factorial of 10 (10! = 1*2*3...*10).
+Question 9. Rewrite script from question 3 using a simple loop
+instead of a numeric FOR loop. Make sure that the output produced by this script does not differ from the output produced
+by the previous script. 
